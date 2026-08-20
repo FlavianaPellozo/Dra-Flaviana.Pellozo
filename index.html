@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dra. Flaviana Pellozo — Harmonização Facial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&amp;family=Parisienne&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+@font-face{
+  font-family:'Regiola Serif';
+  src:url(assets/fonts/font-c5585ff73cdb.ttf) format('truetype');
+  font-weight:400;
+  font-display:swap;
+}
+:root{
+  --c1:#C1B0A1;
+  --c2:#746A61;
+  --c3:#D1BFB2;
+  --c4:#F4EEE9;
+  --gold-1:#EBBB7A;
+  --gold-2:#C9944F;
+  --gold-3:#8F6A3D;
+  --serif:'Regiola Serif','Playfair Display',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:var(--sans);font-weight:300;background:var(--c4);color:var(--c2);overflow-x:hidden;cursor:none;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;border:none;background:none;cursor:none;}
+@media(max-width:900px){body{cursor:auto;} button,a{cursor:pointer;}}
+
+#cur{position:fixed;width:7px;height:7px;background:var(--gold-3);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+#cur-r{position:fixed;width:34px;height:34px;border:1px solid var(--gold-2);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .3s,height .3s,opacity .3s;}
+@media(max-width:900px){#cur,#cur-r{display:none;}}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 6vw;}
+.section{padding:140px 0;}
+@media(max-width:900px){.section{padding:80px 0;}}
+.eyebrow{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-3);font-weight:500;}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;color:var(--c2);}
+p{line-height:1.85;color:var(--c2);opacity:.88;}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 6vw;transition:all .5s var(--ease);}
+nav.s{background:rgba(244,238,233,.92);backdrop-filter:blur(14px);padding:1rem 6vw;box-shadow:0 1px 0 rgba(193,176,161,.14);}
+.nav-logo{position:relative;height:34px;width:150px;display:block;}
+.nav-logo img{position:absolute;top:0;left:0;height:34px;width:auto;max-width:150px;object-fit:contain;object-position:left center;transition:opacity .4s;}
+.nav-logo .lw{opacity:1;}
+.nav-logo .lr{opacity:0;}
+nav.s .nav-logo .lw{opacity:0;}
+nav.s .nav-logo .lr{opacity:1;}
+.nav-book{
+  font-size:.54rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  padding:.5rem 1.15rem;border-radius:999px;border:1px solid rgba(255,255,255,.7);color:#fff;
+  background:transparent;transition:all .35s;
+}
+nav.s .nav-book{border-color:var(--c1);color:var(--c1);}
+.nav-book:hover{background:rgba(255,255,255,.15);}
+nav.s .nav-book:hover{background:rgba(193,176,161,.1);}
+
+/* hero */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;}
+.hero__img{width:100%;height:100%;object-fit:cover;object-position:center 18%;position:absolute;inset:0;}
+.hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(193,176,161,.14) 0%,rgba(193,176,161,.20) 30%,rgba(90,79,68,.86) 100%);opacity:1;}
+.hero__content{position:relative;z-index:2;text-align:center;color:#fff;max-width:640px;padding:0 6vw;margin-bottom:12vh;}
+.hero__eyebrow{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:#fff;margin-bottom:1.1rem;opacity:1;text-shadow:0 2px 12px rgba(0,0,0,.25);}
+.hero__title{font-size:clamp(1.8rem,4vw,3rem);font-weight:400;color:#fff;line-height:1.32;margin-bottom:1.2rem;position:relative;text-shadow:0 2px 20px rgba(0,0,0,.25);}
+.hero__title em{font-style:normal;font-family:'Parisienne',cursive;color:#fff;font-size:1.35em;font-weight:400;}
+.hero__title-inner{opacity:1;display:inline;filter:brightness(1.5);animation:none;}
+.hero__sub{font-size:.92rem;font-weight:300;color:rgba(255,255,255,.86);max-width:46ch;margin:0 auto 2rem;line-height:1.8;opacity:1;text-shadow:0 2px 12px rgba(0,0,0,.2);}
+.hero__ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:1;}
+
+.hero__scrollcue{position:absolute;left:50%;bottom:2vh;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.6rem;opacity:1;}
+.hero__scrollcue img{width:28px;height:auto;filter:brightness(0) invert(1);animation:bob 2.2s ease-in-out infinite;}
+.hero__scrollcue span{font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.65);}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(9px);}}
+
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:.85rem 1.8rem;border-radius:999px;transition:all .4s var(--ease);}
+.btn-gold{background:linear-gradient(135deg,var(--gold-1) 0%,var(--gold-2) 55%,var(--gold-3) 100%);color:#fff;box-shadow:0 8px 22px rgba(143,106,61,.32);}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(143,106,61,.42);}
+.btn-outline{border:1px solid rgba(255,255,255,.6);color:#fff;}
+.btn-outline:hover{background:rgba(255,255,255,.15);}
+
+/* about - left aligned */
+.about{background:var(--c4);}
+.about .wrap{max-width:640px;}
+.about h2{font-size:clamp(1.6rem,3.2vw,2.3rem);margin:.9rem 0 1.5rem;text-align:left;}
+.about h2 em{font-style:italic;color:var(--c1);}
+.about p{font-size:.94rem;text-align:left;margin-bottom:1.1rem;}
+.about__mission{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--c2);text-align:left;margin-top:1.8rem;line-height:1.6;padding:1.3rem 1.6rem;border:1px solid var(--gold-2);border-radius:8px;background:linear-gradient(135deg,rgba(232,180,160,.14),rgba(140,90,70,.05));}
+.strip{margin-top:3.2rem;padding-top:2rem;border-top:1px solid rgba(193,176,161,.3);display:flex;gap:2rem;flex-wrap:wrap;}
+.strip span{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c2);position:relative;padding-right:2.2rem;}
+.strip span:last-child{padding-right:0;}
+.strip span::after{content:'';position:absolute;right:-1.1rem;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--gold-2);}
+.strip span:last-child::after{display:none;}
+
+.reveal-left{opacity:1;transform:none;}
+
+/* nav pills - translucent */
+.navcards{background:linear-gradient(180deg,var(--c3) 0%,var(--c4) 100%);}
+.navcards__head{text-align:center;max-width:540px;margin:0 auto 2.6rem;}
+.navcards__row{display:flex;justify-content:center;gap:1.1rem;flex-wrap:wrap;}
+.navpill{
+  display:inline-flex;align-items:center;gap:.7rem;padding:1rem 1.9rem;border-radius:999px;color:#fff;
+  background:linear-gradient(135deg,rgba(235,187,122,.72) 0%,rgba(201,148,79,.72) 55%,rgba(143,106,61,.72) 100%);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.35);
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  box-shadow:0 10px 26px rgba(143,106,61,.22);animation:floaty 4.5s ease-in-out infinite;transition:transform .35s,box-shadow .35s;
+}
+.navpill:hover{transform:translateY(-5px) scale(1.04);box-shadow:0 18px 36px rgba(143,106,61,.32);animation-play-state:paused;}
+.navpill:nth-child(2){animation-delay:.4s;}
+.navpill:nth-child(3){animation-delay:.8s;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+/* method - small glass cards */
+.method{background:var(--c3);}
+.method__head{text-align:center;max-width:600px;margin:0 auto 3rem;}
+.method__head h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-top:.8rem;}
+.method__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:880px;margin:0 auto;}
+@media(max-width:820px){.method__grid{grid-template-columns:1fr;}}
+.method__card{
+  border:1px solid var(--gold-2);border-radius:14px;padding:1.6rem 1.4rem;text-align:center;
+  background:linear-gradient(160deg,rgba(244,238,233,.92),rgba(244,238,233,.7));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:box-shadow .4s,transform .4s;cursor:default;
+}
+.method__card:hover{box-shadow:0 20px 40px rgba(143,106,61,.22);transform:translateY(-4px);border-color:var(--gold-1);}
+.method__num{font-family:var(--serif);font-style:italic;color:var(--gold-3);font-size:.9rem;display:block;margin-bottom:.7rem;}
+.method__card h3{font-size:1.02rem;margin-bottom:.3rem;}
+.method__reveal{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s var(--ease),opacity .5s var(--ease),margin .5s;}
+.method__card:hover .method__reveal{max-height:120px;opacity:1;margin-top:.7rem;}
+.method__reveal p{font-size:.8rem;}
+
+/* final cta - full bleed photo, same reveal mechanic as hero */
+.final{position:relative;height:88vh;min-height:560px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;text-align:center;}
+.final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;}
+.final__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(193,176,161,.14) 0%,rgba(193,176,161,.20) 30%,rgba(90,79,68,.86) 100%);opacity:1;}
+.final__content{position:relative;z-index:1;color:#fff;max-width:680px;padding:0 6vw;margin-bottom:8vh;}
+.final__content .eyebrow{color:#fff;opacity:1;text-shadow:0 2px 12px rgba(0,0,0,.25);}
+.final__content h2{color:#fff;font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.5;margin:1.1rem 0 2.2rem;opacity:1;text-shadow:0 2px 20px rgba(0,0,0,.25);}
+.final__ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:1;}
+
+/* footer */
+footer{background:var(--c1);color:#fff;padding:4rem 0 2rem;}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.4rem;margin-bottom:2.6rem;}
+.foot-logo{height:32px;width:auto;margin-bottom:1rem;filter:brightness(0) invert(1);}
+.foot-grid p{font-size:.8rem;color:rgba(255,255,255,.8);max-width:32ch;}
+.foot-col h4{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;opacity:.85;margin-bottom:1rem;}
+.foot-col a{display:block;font-size:.86rem;color:rgba(255,255,255,.92);margin-bottom:.6rem;}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:1.4rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;font-size:.66rem;color:rgba(255,255,255,.75);}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr;}}
+
+.reveal{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left{opacity:1!important;transform:none!important;}}
+
+/* assinatura Edhen */
+.made-by{text-align:center;padding:1.5rem 0 1.9rem;background:var(--c4);}
+.made-by span{font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--c1);display:block;margin-bottom:.6rem;}
+.made-by .edhen-mark{width:96px;height:50px;margin:0 auto;background-color:var(--c2);opacity:.85;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center center;mask-position:center center;}
+.made-by .edhen-handle{display:block;margin-top:.5rem;font-size:.55rem;letter-spacing:.04em;color:var(--c2);opacity:.7;text-transform:none;}
+</style>
+</head>
+<body>
+<script>
+/* rede de seguranca: garante que o conteudo apareca mesmo se o script de
+   animacao (GSAP/Lenis) falhar ao carregar por qualquer motivo */
+setTimeout(function(){
+  document.querySelectorAll('.reveal').forEach(function(el){
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  ['pheroTitle','pheroEyebrow','pheroSub','pheroLogo','heroTitle','heroEyebrow','heroSub','pheroOverlay','heroOverlay','finalOverlay'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.style.opacity = '1';
+  });
+  document.querySelectorAll('.wd').forEach(function(el){ el.style.opacity='1'; el.style.transform='none'; });
+}, 2000);
+</script>
+
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img class="lw" src="assets/img/nav-c732f55d6663.webp" alt="Flaviana Pellozo — Harmonização Orofacial"><div class="lr" role="img" aria-label="Flaviana Pellozo" style="position:absolute;top:0;left:0;height:34px;width:150px;transition:opacity .4s;-webkit-mask-image:url('assets/img/img-a0b9c88acfb0.webp');mask-image:url('assets/img/img-a0b9c88acfb0.webp');-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:left center;mask-position:left center;background-color:var(--c2);"></div></a>
+  <a href="https://wa.me/5519971510185?text=Ol%C3%A1!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="nav-book">Agendamentos</a>
+</nav>
+
+<section class="hero">
+  <img class="hero__img" id="heroImg" src="assets/img/heroImg-7b2fb61cde02.webp" alt="Dra. Flaviana Pellozo">
+  <div class="hero__overlay" id="heroOverlay"></div>
+  <div class="hero__content">
+    <div class="hero__eyebrow" id="heroEyebrow">Harmonização Facial · Estética Médica</div>
+    <h1 class="hero__title" id="heroTitle">
+      <span class="hero__title-inner">Renovar a autoestima não é sobre mudar um rosto. É sobre <em>reposicionar</em> a própria identidade.</span>
+    </h1>
+    <p class="hero__sub" id="heroSub">Sou a Dra. Flaviana Pellozo. Acredito em uma beleza que revela quem você é — nunca em uma beleza que transforma.</p>
+    <div class="hero__ctas" id="heroCtas">
+      <a href="https://wa.me/5519971510185?text=Ol%C3%A1!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="btn btn-gold">Agendamentos</a>
+      <a href="produtos-dra-flaviana.html" class="btn btn-outline">Produtos Dra. Flaviana Pellozo</a>
+      <a href="https://wa.me/5511968437292" target="_blank" rel="noopener" class="btn btn-outline">Cursos — Dras. Mari &amp; Fla</a>
+    </div>
+  </div>
+  <div class="hero__scrollcue" id="heroScroll">
+    <span>Scroll</span>
+    <img src="assets/img/heroScroll-0366f261ceaa.webp" alt="Flaviana Pellozo">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section">
+  <div class="wrap">
+    <span class="eyebrow reveal-left">Sobre a Dra. Flaviana</span>
+    <h2 class="reveal-left">Eu não sigo padrões. Eu sigo <em>pessoas</em>.</h2>
+    <p class="reveal-left">Acredito em uma beleza que revela — nunca transforma quem você é. Cada paciente é único, e por isso cada tratamento também deve ser: sem padrões, sem tendências, sem excessos.</p>
+    <p class="reveal-left">Minha filosofia é simples: força sem rigidez, elegância sem exagero e naturalidade sem perder presença. Cuidar da estética é, antes de tudo, cuidar da autoestima e da forma como você se reconhece no espelho.</p>
+    <p class="about__mission reveal-left">Revelar a beleza que já existe em cada paciente, com técnica, sensibilidade e respeito à individualidade.</p>
+    <div class="strip reveal-left">
+      <span>Técnica</span>
+      <span>Sensibilidade</span>
+      <span>Individualidade</span>
+    </div>
+  </div>
+</section>
+
+<!-- NAV CARDS / BUTTONS -->
+<section class="navcards section">
+  <div class="wrap">
+    <div class="navcards__head">
+      <span class="eyebrow reveal">Encontre o Que Procura</span>
+      <h2 class="reveal" style="font-size:1.6rem;margin-top:.8rem;">Tudo em um só lugar</h2>
+    </div>
+    <div class="navcards__row">
+      <a href="https://wa.me/5519971510185?text=Ol%C3%A1!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="navpill reveal">Agendamentos</a>
+      <a href="produtos-dra-flaviana.html" class="navpill reveal">Produtos — Dra. Flaviana Pellozo</a>
+      <a href="https://marianaeflaviana.com" target="_blank" rel="noopener" class="navpill reveal">Five Full Face Experience</a>
+      <a href="https://wa.me/5511968437292" target="_blank" rel="noopener" class="navpill reveal">Cursos e Paciente Modelo — Dras. Mari &amp; Fla</a>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method section">
+  <div class="wrap">
+    <div class="method__head">
+      <span class="eyebrow reveal">Método</span>
+      <h2 class="reveal">A harmonização facial não existe para criar um novo rosto.</h2>
+    </div>
+    <div class="method__grid">
+      <div class="method__card reveal">
+        <span class="method__num">I</span>
+        <h3>Consulta e Escuta</h3>
+        <div class="method__reveal"><p>Antes de qualquer técnica, existe uma conversa sobre quem você é.</p></div>
+      </div>
+      <div class="method__card reveal">
+        <span class="method__num">II</span>
+        <h3>Análise Individual</h3>
+        <div class="method__reveal"><p>Cada rosto é estudado nos seus próprios termos — nada é padrão.</p></div>
+      </div>
+      <div class="method__card reveal">
+        <span class="method__num">III</span>
+        <h3>Equilíbrio e Naturalidade</h3>
+        <div class="method__reveal"><p>Valorizar traços, suavizar sinais do tempo e preservar o que é único em você.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="finalSection">
+  <img id="finalImg" src="assets/img/finalImg-ae9e82240bce.webp" alt="Dra. Flaviana Pellozo">
+  <div class="final__overlay" id="finalOverlay"></div>
+  <div class="final__content">
+    <span class="eyebrow" id="finalEyebrow">Sua Próxima Etapa</span>
+    <h2 id="finalTitle">Mais do que transformar rostos,<br>meu propósito é revelar a beleza<br>que já existe em você.</h2>
+    <div class="final__ctas" id="finalCtas">
+      <a href="https://wa.me/5519971510185?text=Ol%C3%A1!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="btn btn-gold">Agendar Consulta</a>
+      <a href="https://wa.me/5519971510185" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-logo" src="assets/img/nav-c732f55d6663.webp" alt="Flaviana Pellozo — Harmonização Orofacial">
+        <p>Harmonização facial com técnica, sensibilidade e respeito à individualidade de cada paciente.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <a href="https://wa.me/5519971510185" target="_blank" rel="noopener">WhatsApp +55 19 97151-0185</a>
+        <a href="https://www.instagram.com/dra.flavianapellozo" target="_blank" rel="noopener">@dra.flavianapellozo</a>
+      </div>
+      <div class="foot-col">
+        <h4>Consultório</h4>
+        <a href="https://www.google.com/maps/search/?api=1&query=Av.+Benedito+Storani%2C+1425+-+Bl+02+Sala+201+-+Vinhedo+-+SP" target="_blank" rel="noopener">Av. Benedito Storani, 1425 — Bl. 02, Sala 201<br>Vinhedo, SP</a>
+        <a href="https://wa.me/5519971510185?text=Ol%C3%A1!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener">Agendamentos</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Dra. Flaviana Pellozo. Todos os direitos reservados.</span>
+      <span>Beleza que Revela · Técnica · Individualidade</span>
+    </div>
+  </div>
+<div class="made-by">
+  <span>Feito por</span>
+  <div class="edhen-mark" role="img" aria-label="Studio Ēdhen" style="-webkit-mask-image:url('assets/img/img-9b8ad54f80e2.webp');mask-image:url('assets/img/img-9b8ad54f80e2.webp');"></div>
+  <span class="edhen-handle">@edhen.studiobrand</span>
+</div>
+
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+try{
+  const lenis = new Lenis({duration:1.15,smoothWheel:true});
+  function raf(t){lenis.raf(t);requestAnimationFrame(raf);}
+  requestAnimationFrame(raf);
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add((t)=>{lenis.raf(t*1000);});
+  gsap.ticker.lagSmoothing(0);
+}catch(e){}
+
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+window.addEventListener('mousemove',(e)=>{
+  gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.05});
+  gsap.to(curR,{x:e.clientX,y:e.clientY,duration:.25});
+});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>gsap.to(curR,{width:60,height:60,opacity:.3}));
+  el.addEventListener('mouseleave',()=>gsap.to(curR,{width:34,height:34,opacity:.5}));
+});
+
+const nav=document.getElementById('nav');
+ScrollTrigger.create({start:80,end:99999,onUpdate:(self)=>{nav.classList.toggle('s',self.scroll()>80);}});
+
+/* hero reveal: photo + gradient merge, then text fades in with a soft glow settle */
+const heroTl = gsap.timeline({defaults:{ease:'power3.out'}});
+heroTl
+  .fromTo('#heroImg',{scale:1.18},{scale:1,duration:2.8,ease:'power2.out'},0)
+  .to('#heroOverlay',{opacity:1,duration:2.1},0.1)
+  .to('#heroEyebrow',{opacity:1,duration:1},.9)
+  .to('.hero__title-inner',{opacity:1,filter:'brightness(1)',duration:1.6,ease:'power2.out'},1.1)
+  .to('#heroSub',{opacity:1,duration:1.1},1.55)
+  .to('#heroCtas',{opacity:1,duration:.9},1.85)
+  .to('#heroScroll',{opacity:1,duration:.8},2.1);
+
+gsap.utils.toArray('.reveal').forEach((el)=>{
+  gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+});
+gsap.utils.toArray('.reveal-left').forEach((el)=>{
+  gsap.to(el,{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+});
+
+/* slow photo movement on final CTA */
+gsap.to('#finalImg',{
+  scale:1.12,ease:'none',
+  scrollTrigger:{trigger:'.final',start:'top bottom',end:'bottom top',scrub:true}
+});
+
+/* final CTA reveal: photo + gradient merge, then text fades in */
+gsap.timeline({
+  defaults:{ease:'power3.out'},
+  scrollTrigger:{trigger:'#finalSection',start:'top 70%'}
+})
+  .to('#finalOverlay',{opacity:1,duration:1.6},0)
+  .to('#finalEyebrow',{opacity:1,duration:.9},.5)
+  .to('#finalTitle',{opacity:1,duration:1.1},.75)
+  .to('#finalCtas',{opacity:1,duration:.9},1.1);
+</script>
+</body>
+</html>
